@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="p-2">
+            <h4 class="text-center">Bir Kullanici Getir</h4>
+            <input type="text" id="kullaniciId" class="form-control" />
+            <button type="button" id="birKullaniciGetir" class="btn btn-block btn-info">Getir</button>
+        </div>
+        <div class="p-2" id="birKullanici">
+
+        </div>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+</div>
+@section JavaScripts
+{
+    <script>
+        $(document).ready(function() {
+            $("#birKullaniciGetir").click(I => {
+                let id = $("#kullaniciId").val();
+                $.ajax({
+                    contentType: "application/Json charset)Utf-8;",
+                    dataType: "json",
+                    type: "Get",
+                    url: "/Home/GetirIdile",
+                    data: { kullaniciId: id },
+                    success: function(data) {
+                        let donustur = jQuery.parseJSON(data);
+                        let htmlString = `<table class="table table-hover table-sm"><tr> <th>Kullanıcı Id </th> <td>${donustur.Id}</td> </tr><tr> <th>Kullanıcı Ad </th> <td>${donustur.Ad}</td> </tr> </table>`;
+                        $("#birKullanici").html(htmlString);
+                    }
+
+                });
+            })
+
+        });
+
+
+    </script>
+}
